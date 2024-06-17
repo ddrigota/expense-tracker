@@ -20,26 +20,30 @@ const fakeExpenses: Expense[] = [
 ];
 
 export const expensesRoute = new Hono()
-  .get("/", async (c) => {
+  .get("/", async c => {
     return c.json({ expences: fakeExpenses });
   })
-  .post("/", zValidator("json", createPostSchema), async (c) => {
+  .post("/", zValidator("json", createPostSchema), async c => {
     const expense = await c.req.valid("json");
     fakeExpenses.push({ id: fakeExpenses.length + 1, ...expense });
     c.status(201);
     return c.json({ expense });
   })
-  .get("/:id{[0-9]+}", (c) => {
+  .get("/total-spent", c => {
+    const total = fakeExpenses.reduce((acc, expense) => acc + expense.amount, 0);
+    return c.json({ total });
+  })
+  .get("/:id{[0-9]+}", c => {
     const id = Number.parseInt(c.req.param("id"));
-    const expense = fakeExpenses.find((expense) => expense.id === id);
+    const expense = fakeExpenses.find(expense => expense.id === id);
     if (!expense) {
       return c.notFound();
     }
     return c.json({ expense });
   })
-  .delete("/:id{[0-9]+}", (c) => {
+  .delete("/:id{[0-9]+}", c => {
     const id = Number.parseInt(c.req.param("id"));
-    const index = fakeExpenses.findIndex((expense) => expense.id === id);
+    const index = fakeExpenses.findIndex(expense => expense.id === id);
     if (index === -1) {
       return c.notFound();
     }
