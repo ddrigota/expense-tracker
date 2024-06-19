@@ -18,4 +18,8 @@ export const authRoute = new Hono()
   .get("/logout", async c => {
     const logoutUrl = await kindeClient.logout(sessionManager(c));
     return c.redirect(logoutUrl.toString());
+  })
+  .get("/me", async c => {
+    const isAuthenticated = await kindeClient.isAuthenticated(sessionManager(c));
+    return c.json({ isAuthenticated });
   });
