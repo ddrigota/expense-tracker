@@ -26,7 +26,7 @@ async function getAllExpenses() {
 }
 
 function Expenses() {
-  const { isPending, error, data } = useQuery({
+  const { isPending, data } = useQuery({
     queryKey: ["get-all-expenses"],
     queryFn: getAllExpenses,
   });
