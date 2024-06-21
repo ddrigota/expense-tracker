@@ -2,7 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { api } from "@/lib/api";
+import { expenseCategories } from "@server/db/schema/expenses";
 import { createExpenseSchema } from "@server/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -19,6 +27,7 @@ function CreateExpense() {
       title: "",
       amount: "",
       date: new Date().toISOString(),
+      category: "",
     },
     onSubmit: async ({ value }) => {
       const res = await api.expenses.$post({ json: value });
@@ -92,6 +101,44 @@ function CreateExpense() {
             );
           }}
         />
+        <form.Field
+          name="category"
+          validators={{
+            onChange: createExpenseSchema.shape.category,
+          }}
+          children={(field) => {
+            return (
+              <div>
+                <Label htmlFor={field.name}>Category</Label>
+                <Select
+                  name={field.name}
+                  value={field.state.value}
+                  onValueChange={(value) => field.handleChange(value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {expenseCategories.map((category) => (
+                      <SelectItem
+                        key={category.toLowerCase()}
+                        value={category.toLowerCase()}
+                      >
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {field.state.meta.touchedErrors ? (
+                  <em className="text-destructive">
+                    {field.state.meta.touchedErrors}
+                  </em>
+                ) : null}
+              </div>
+            );
+          }}
+        />
+
         <form.Field
           name="date"
           validators={{

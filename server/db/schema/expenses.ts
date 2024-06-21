@@ -10,6 +10,19 @@ import {
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
+export const expenseCategories = [
+  "Groceries",
+  "Rent",
+  "Utilities",
+  "Subscriptions",
+  "Restaurants",
+  "Hobbies",
+  "Cigarettes",
+  "Clothing",
+  "Food delivery",
+  "Other",
+] as const;
+
 export const expenses = pgTable(
   "expenses",
   {
@@ -19,6 +32,7 @@ export const expenses = pgTable(
     amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
     date: date("date").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
+    category: text("category").notNull(),
   },
   expenses => {
     return {
