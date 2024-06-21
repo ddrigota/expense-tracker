@@ -15,6 +15,13 @@
       "when": 1718888604659,
       "tag": "0001_smart_daimon_hellstrom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1718976872950,
+      "tag": "0002_motionless_zarek",
+      "breakpoints": true
     }
   ]
 }
