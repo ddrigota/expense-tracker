@@ -27,7 +27,7 @@ function CreateExpense() {
       title: "",
       amount: "",
       date: new Date().toISOString(),
-      category: "",
+      category: "other",
     },
     onSubmit: async ({ value }) => {
       const res = await api.expenses.$post({ json: value });

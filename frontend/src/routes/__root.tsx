@@ -15,7 +15,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Navbar() {
   return (
-    <div className="m-auto flex max-w-2xl justify-between gap-2 p-2">
+    <div className="m-auto flex w-full max-w-2xl justify-between gap-2 p-2">
       <Link to="/" className="[&.active]:font-bold">
         Home
       </Link>
@@ -35,14 +35,32 @@ function Navbar() {
   );
 }
 
+function Footer() {
+  return (
+    <div className="m-auto flex h-12 w-full max-w-2xl items-center justify-center p-2">
+      <div className="text-center text-xs">
+        <p>
+          Made with{" "}
+          <span role="img" aria-label="love">
+            ❤️
+          </span>{" "}
+          by Dmitry Drigota
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function Root() {
   return (
-    <>
+    <div className="container flex min-h-dvh w-full flex-col">
       <Navbar />
       <hr />
-      <div className="container max-w-2xl p-2">
+      <main className="container max-w-2xl flex-1 p-2">
         <Outlet />
-      </div>
-    </>
+      </main>
+      <hr />
+      <Footer />
+    </div>
   );
 }
