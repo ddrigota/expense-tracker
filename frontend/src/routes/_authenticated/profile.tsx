@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,7 +24,18 @@ function Profile() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Hello {data.user.given_name}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Avatar>
+            {data.user.picture && (
+              <AvatarImage
+                src={data.user.picture.toString()}
+                alt={data.user.given_name}
+              />
+            )}
+            <AvatarFallback>?</AvatarFallback>
+          </Avatar>
+          {`${data.user.given_name} ${data.user.family_name}`}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div>
@@ -31,7 +43,7 @@ function Profile() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button type="button">
+        <Button asChild>
           <a href="/api/logout">Logout</a>
         </Button>
       </CardFooter>

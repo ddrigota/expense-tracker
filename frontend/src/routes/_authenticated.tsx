@@ -17,7 +17,7 @@ const Login = () => {
         <CardDescription>To see your expenses</CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button type="button">
+        <Button asChild>
           <a href="/api/login">Login</a>
         </Button>
       </CardFooter>
