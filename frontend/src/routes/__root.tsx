@@ -15,22 +15,27 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Navbar() {
   return (
-    <div className="m-auto flex w-full max-w-2xl justify-between gap-2 p-2">
-      <Link to="/" className="[&.active]:font-bold">
-        Home
-      </Link>
-      <Link to="/about" className="[&.active]:font-bold">
-        About
-      </Link>
-      <Link to="/expenses" className="[&.active]:font-bold">
-        Expenses
-      </Link>
-      <Link to="/create-expense" className="[&.active]:font-bold">
-        Create
-      </Link>
-      <Link to="/profile" className="[&.active]:font-bold">
-        Profile
-      </Link>
+    <div className="flex justify-between">
+      <div className="m-auto p-2">
+        <h1 className="text-2xl">DD Expense Tracker</h1>
+      </div>
+      <div className="m-auto flex justify-between gap-8 p-2">
+        <Link to="/" className="[&.active]:font-bold">
+          Home
+        </Link>
+        <Link to="/about" className="[&.active]:font-bold">
+          About
+        </Link>
+        <Link to="/expenses" className="[&.active]:font-bold">
+          Expenses
+        </Link>
+        <Link to="/create-expense" className="[&.active]:font-bold">
+          Add
+        </Link>
+        <Link to="/profile" className="[&.active]:font-bold">
+          Profile
+        </Link>
+      </div>
     </div>
   );
 }
@@ -56,7 +61,7 @@ function Root() {
     <div className="container flex min-h-dvh w-full flex-col">
       <Navbar />
       <hr />
-      <main className="container max-w-2xl flex-1 p-2">
+      <main className="container mt-6 max-w-2xl flex-1 p-2">
         <Outlet />
       </main>
       <hr />

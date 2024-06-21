@@ -32,7 +32,7 @@ function Expenses() {
   });
 
   return (
-    <div className="m-auto max-w-3xl p-2">
+    <div className="m-auto p-2">
       <Table>
         <TableCaption>A list of all your expenses</TableCaption>
         <TableHeader>
