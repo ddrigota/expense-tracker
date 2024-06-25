@@ -9,13 +9,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { api, getAllExpensesQueryOptions } from "@/lib/api";
+import {
+  createExpense,
+  getAllExpensesQueryOptions,
+  loadingCreateExpenseQueryOptions,
+} from "@/lib/api";
 import { expenseCategories } from "@server/db/schema/expenses";
 import { createExpenseSchema } from "@server/sharedTypes";
 import { useForm } from "@tanstack/react-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-form-adapter";
+import { toast } from "sonner";
 export const Route = createFileRoute("/_authenticated/create-expense")({
   component: CreateExpense,
 });
@@ -35,16 +40,26 @@ function CreateExpense() {
         getAllExpensesQueryOptions,
       );
       navigate({ to: "/expenses" });
-      const res = await api.expenses.$post({ json: value });
-      if (!res.ok) {
-        throw new Error("Failed to create expense");
-      }
-
-      const newExpense = await res.json();
-      queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
-        ...existingExpenses,
-        expenses: [newExpense, ...existingExpenses.expenses],
+      // loading
+      queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {
+        expense: value,
       });
+      try {
+        const newExpense = await createExpense({ value });
+        queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+          ...existingExpenses,
+          expenses: [newExpense, ...existingExpenses.expenses],
+        });
+        toast("Expense Created", {
+          description: `Successfully created new expense: ${newExpense.title}`,
+        });
+      } catch (error) {
+        toast("Error", {
+          description: "Failed to create new expense",
+        });
+      } finally {
+        queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {});
+      }
     },
     validatorAdapter: zodValidator(),
   });

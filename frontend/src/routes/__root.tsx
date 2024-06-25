@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
@@ -58,14 +59,17 @@ function Footer() {
 
 function Root() {
   return (
-    <div className="container flex min-h-dvh w-full flex-col">
-      <Navbar />
-      <hr />
-      <main className="container mt-6 max-w-2xl flex-1 p-2">
-        <Outlet />
-      </main>
-      <hr />
-      <Footer />
-    </div>
+    <>
+      <div className="container flex min-h-dvh w-full flex-col">
+        <Navbar />
+        <hr />
+        <main className="container mt-6 max-w-2xl flex-1 p-2">
+          <Outlet />
+        </main>
+        <hr />
+        <Footer />
+      </div>
+      <Toaster />
+    </>
   );
 }
