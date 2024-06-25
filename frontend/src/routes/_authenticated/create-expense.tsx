@@ -9,18 +9,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { api } from "@/lib/api";
+import { api, getAllExpensesQueryOptions } from "@/lib/api";
 import { expenseCategories } from "@server/db/schema/expenses";
 import { createExpenseSchema } from "@server/sharedTypes";
 import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-
 export const Route = createFileRoute("/_authenticated/create-expense")({
   component: CreateExpense,
 });
 
 function CreateExpense() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
@@ -30,11 +31,20 @@ function CreateExpense() {
       category: "other",
     },
     onSubmit: async ({ value }) => {
+      const existingExpenses = await queryClient.ensureQueryData(
+        getAllExpensesQueryOptions,
+      );
+      navigate({ to: "/expenses" });
       const res = await api.expenses.$post({ json: value });
       if (!res.ok) {
         throw new Error("Failed to create expense");
       }
-      navigate({ to: "/expenses" });
+
+      const newExpense = await res.json();
+      queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+        ...existingExpenses,
+        expenses: [newExpense, ...existingExpenses.expenses],
+      });
     },
     validatorAdapter: zodValidator(),
   });
