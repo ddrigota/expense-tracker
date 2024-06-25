@@ -1,3 +1,4 @@
+import ExpenseDeleteButton from "@/components/ExpenseDeleteButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -40,6 +41,7 @@ function Expenses() {
             <TableHead>Date</TableHead>
             <TableHead>Category</TableHead>
             <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="w-[100px] text-right"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -55,6 +57,9 @@ function Expenses() {
               <TableCell>{loadingCreateExpense.expense?.category}</TableCell>
               <TableCell className="text-right">
                 {loadingCreateExpense.expense?.amount}
+              </TableCell>
+              <TableCell className="text-right">
+                <Skeleton className="h-4" />
               </TableCell>
             </TableRow>
           )}
@@ -78,6 +83,9 @@ function Expenses() {
                     <TableCell className="text-right">
                       <Skeleton className="h-4" />
                     </TableCell>
+                    <TableCell className="text-right">
+                      <Skeleton className="h-4" />
+                    </TableCell>
                   </TableRow>
                 ))
             : data?.expenses.map((expense) => (
@@ -87,6 +95,9 @@ function Expenses() {
                   <TableCell>{expense.date}</TableCell>
                   <TableCell>{expense.category}</TableCell>
                   <TableCell className="text-right">{expense.amount}</TableCell>
+                  <TableCell className="text-right">
+                    <ExpenseDeleteButton id={expense.id} />
+                  </TableCell>
                 </TableRow>
               ))}
         </TableBody>

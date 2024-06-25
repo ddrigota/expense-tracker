@@ -28,11 +28,11 @@ function Profile() {
           <Avatar>
             {data.user.picture && (
               <AvatarImage
-                src={data.user.picture.toString()}
+                // src={data.user.picture.toString()}
                 alt={data.user.given_name}
               />
             )}
-            <AvatarFallback>?</AvatarFallback>
+            <AvatarFallback className="text-sm">{`${data.user.given_name[0]}${data.user.family_name[0]}`}</AvatarFallback>
           </Avatar>
           {`${data.user.given_name} ${data.user.family_name}`}
         </CardTitle>
