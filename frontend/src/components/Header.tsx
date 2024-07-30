@@ -1,16 +1,18 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 import { ThemeToggle } from "./Theme/ThemeToggle";
 import { Button } from "./ui/button";
+import { UserMenu } from "./UserMenu";
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/create-expense", label: "Add New" },
   { to: "/expenses", label: "All Expenses" },
-  { to: "/profile", label: "Profile" },
   { to: "/about", label: "About" },
 ];
 
 function Navbar() {
+  const { user } = useRouteContext({ from: "__root__" });
+
   return (
     <div className="flex items-center justify-between px-4 py-2">
       <div className="p-2">
@@ -23,7 +25,7 @@ function Navbar() {
           <Button key={link.to} asChild variant={"ghost"}>
             <Link
               to={link.to}
-              className="[&.active]:font-bold"
+              className="[&.active]:text-primary"
               aria-label={link.label}
             >
               {link.label}
@@ -31,7 +33,16 @@ function Navbar() {
           </Button>
         ))}
       </div>
-      <ThemeToggle />
+      <div className="flex gap-2">
+        {user ? (
+          <UserMenu />
+        ) : (
+          <Button asChild variant={"default"}>
+            <a href="/api/login">Login</a>
+          </Button>
+        )}
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

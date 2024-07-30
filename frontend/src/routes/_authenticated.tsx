@@ -6,8 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { userQueryOptions } from "@/lib/api";
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import {
+  Outlet,
+  createFileRoute,
+  useRouteContext,
+} from "@tanstack/react-router";
 
 const Login = () => {
   return (
@@ -26,7 +29,7 @@ const Login = () => {
 };
 
 const Component = () => {
-  const { user } = Route.useRouteContext();
+  const { user } = useRouteContext({ from: "__root__" });
   if (!user) {
     return <Login />;
   }
@@ -34,14 +37,5 @@ const Component = () => {
 };
 
 export const Route = createFileRoute("/_authenticated")({
-  beforeLoad: async ({ context }) => {
-    const queryClient = context.queryClient;
-    try {
-      const data = await queryClient.fetchQuery(userQueryOptions);
-      return data;
-    } catch (error) {
-      return { user: null };
-    }
-  },
   component: Component,
 });
