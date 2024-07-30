@@ -44,30 +44,24 @@ function Index() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Expenses</CardTitle>
-            <CardDescription>Total expenses for the month</CardDescription>
+            <CardTitle>Categories</CardTitle>
+            <CardDescription>Breakdown of expenses by category</CardDescription>
           </CardHeader>
-          <CardContent className="text-4xl font-bold">
-            {isPending ? "..." : !data.total ? 0 : data.total}
-          </CardContent>
+          <CardContent className="text-4xl font-bold"></CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Expenses</CardTitle>
-            <CardDescription>Total expenses for the month</CardDescription>
+            <CardTitle>History</CardTitle>
+            <CardDescription>Timeline of expenses over time</CardDescription>
           </CardHeader>
-          <CardContent className="text-4xl font-bold">
-            {isPending ? "..." : !data.total ? 0 : data.total}
-          </CardContent>
+          <CardContent className="text-4xl font-bold"></CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Expenses</CardTitle>
-            <CardDescription>Total expenses for the month</CardDescription>
+            <CardTitle>Recent</CardTitle>
+            <CardDescription>Your latest expenses</CardDescription>
           </CardHeader>
-          <CardContent className="text-4xl font-bold">
-            {isPending ? "..." : !data.total ? 0 : data.total}
-          </CardContent>
+          <CardContent className="text-4xl font-bold"></CardContent>
         </Card>
       </div>
     </>
