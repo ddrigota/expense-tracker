@@ -29,7 +29,7 @@ function Root() {
       <div className="container flex min-h-dvh w-full flex-col">
         <Navbar />
         <Separator />
-        <main className="container mt-6 max-w-2xl flex-1 p-2">
+        <main className="container mt-6 max-w-screen-lg flex-1 p-2">
           <Outlet />
         </main>
         <Separator />

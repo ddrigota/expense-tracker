@@ -14,17 +14,20 @@ import {
 
 const Login = () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Please Login</CardTitle>
-        <CardDescription>To see your expenses</CardDescription>
-      </CardHeader>
-      <CardFooter>
-        <Button asChild>
-          <a href="/api/login">Login</a>
-        </Button>
-      </CardFooter>
-    </Card>
+    <div className="flex items-center justify-center">
+      <Card className="min-w-96">
+        <CardHeader>
+          <CardTitle>Please Login</CardTitle>
+          <CardDescription>To see your expenses</CardDescription>
+        </CardHeader>
+
+        <CardFooter>
+          <Button asChild className="w-full">
+            <a href="/api/login">Login</a>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 

@@ -31,14 +31,45 @@ function Index() {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <Card className="m-auto w-[350px]">
-      <CardHeader>
-        <CardTitle>Total Spent</CardTitle>
-        <CardDescription>The total amount spent</CardDescription>
-      </CardHeader>
-      <CardContent className="text-4xl font-bold">
-        {isPending ? "..." : !data.total ? 0 : data.total}
-      </CardContent>
-    </Card>
+    <>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle>Expenses</CardTitle>
+            <CardDescription>Total expenses for the month</CardDescription>
+          </CardHeader>
+          <CardContent className="text-4xl font-bold">
+            {isPending ? "..." : !data.total ? 0 : data.total}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Expenses</CardTitle>
+            <CardDescription>Total expenses for the month</CardDescription>
+          </CardHeader>
+          <CardContent className="text-4xl font-bold">
+            {isPending ? "..." : !data.total ? 0 : data.total}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Expenses</CardTitle>
+            <CardDescription>Total expenses for the month</CardDescription>
+          </CardHeader>
+          <CardContent className="text-4xl font-bold">
+            {isPending ? "..." : !data.total ? 0 : data.total}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Expenses</CardTitle>
+            <CardDescription>Total expenses for the month</CardDescription>
+          </CardHeader>
+          <CardContent className="text-4xl font-bold">
+            {isPending ? "..." : !data.total ? 0 : data.total}
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 }
