@@ -1,4 +1,5 @@
 import { Link, useRouteContext } from "@tanstack/react-router";
+import { BurgerNav } from "./BurgerNav";
 import { ThemeToggle } from "./Theme/ThemeToggle";
 import { Button } from "./ui/button";
 import { UserMenu } from "./UserMenu";
@@ -20,7 +21,7 @@ function Navbar() {
           LOGO
         </h1>
       </div>
-      <div className="m-auto flex justify-between gap-8 p-2">
+      <div className="m-auto hidden justify-between gap-8 lg:flex">
         {navLinks.map((link) => (
           <Button key={link.to} asChild variant={"ghost"}>
             <Link
@@ -42,6 +43,9 @@ function Navbar() {
           </Button>
         )}
         <ThemeToggle />
+        <div className="lg:hidden">
+          <BurgerNav links={navLinks} />
+        </div>
       </div>
     </div>
   );
